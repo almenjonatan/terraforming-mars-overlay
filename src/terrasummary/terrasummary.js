@@ -58,8 +58,15 @@ class TerraSummary extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            playerState: Map()
+
+        if(props.data === undefined){
+            this.state = {
+                playerState: Map()
+            }
+        } else {
+            this.state = {
+                playerState: fromJS(props.data)
+            }
         }
     }
 
