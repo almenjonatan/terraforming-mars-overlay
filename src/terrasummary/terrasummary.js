@@ -11,33 +11,38 @@ class PlayerSummary extends React.Component {
 
     render() {
 
-        const cardsPlayed = this.props.playerData.get("cardsPlayed").reverse().map((value, key) => {
+        console.log(this.props.playerData.toJS())
+        console.log(this.props.playerData instanceof Map)
+        console.log(this.props.playerData.get("FinalScore"))
+        console.log(this.props.playerData.get("CardsPlayed"))
+
+        const cardsPlayed = this.props.playerData.get("CardsPlayed").reverse().map((value, key) => {
             return <div key={key}>{value}</div>
         })
 
 
-        const localPlayerId = this.props.playerData.get("localPlayerId")
+        const localPlayerId = this.props.playerData.get("LocalPlayerId")
 
         let cardsInHand = undefined
 
-        if (localPlayerId === this.props.playerData.get("playerId")) {
-            cardsInHand = this.props.playerData.get("cardsInHand").map((value, key) => {
+        if (localPlayerId === this.props.playerData.get("PlayerId")) {
+            cardsInHand = this.props.playerData.get("CardsInHand").map((value, key) => {
                 return <div key={key}>{value}</div>
             })
         } else {
-            cardsInHand = <h3>{this.props.playerData.get("cardsInHand").size}</h3>
+            cardsInHand = <h3>{this.props.playerData.get("CardsInHand").size}</h3>
         }
 
         return (
             <div style={{"width": "400px", "float": "left"}}>
-                {<h3>Player {this.props.playerData.get("playerId")}, Total Score: {this.props.playerData.get("score")}</h3>}
+                {<h3>{this.props.playerData.get("Color")}, Total Score: {this.props.playerData.get("FinalScore")}</h3>}
                 <div>
-                    <span>MegaCredit {this.props.playerData.get("megacredit")}</span><br />
-                    <span>steel {this.props.playerData.get("steel")}, </span><br />
-                    <span>titanium {this.props.playerData.get("titanium")}, </span><br />
-                    <span>plant {this.props.playerData.get("plant")}, </span><br />
-                    <span>energy {this.props.playerData.get("energy")}, </span><br />
-                    <span>heat {this.props.playerData.get("heat")}</span><br /><br />
+                    <span>MegaCredit {this.props.playerData.getIn(["ResourceData", "MegaCredit", "Quantity"])}</span><br />
+                    <span>steel {this.props.playerData.getIn(["ResourceData", "Steel", "Quantity"])}, </span><br />
+                    <span>titanium {this.props.playerData.getIn(["ResourceData", "Titanium", "Quantity"])}, </span><br />
+                    <span>plant {this.props.playerData.getIn(["ResourceData", "Plant", "Quantity"])}, </span><br />
+                    <span>energy {this.props.playerData.getIn(["ResourceData", "Energy", "Quantity"])}, </span><br />
+                    <span>heat {this.props.playerData.getIn(["ResourceData", "Heat", "Quantity"])}</span><br /><br />
                 </div>
                 <div>
                     <h3>Cards In hand!</h3>
@@ -61,16 +66,14 @@ class TerraSummary extends React.Component {
 
         if(props.data === undefined){
             this.state = {
-                playerState: Map()
+                playerStates: Map()
             }
         } else {
             this.state = {
-                playerState: fromJS(props.data)
+                playerStates: fromJS(props.data)
             }
         }
     }
-
-
 
     componentDidMount() {
         const socket = io("localhost:5000")
@@ -80,14 +83,12 @@ class TerraSummary extends React.Component {
         })
 
         socket.on("update", (data) => {
-            this.setState({ playerState: this.state.playerState.merge(fromJS(data))})
+            this.setState({ playerStates: this.state.playerStates.merge(fromJS(data))})
         })
     }
 
     render() {
-        console.log(this.state.playerState.toJS())
-        const playerSummaries = this.state.playerState.entrySeq().map(([key, value])=> {
-            console.log(key, value)
+        const playerSummaries = this.state.playerStates.entrySeq().map(([key, value])=> {
             return <PlayerSummary key={key} playerData={value} />
         })
 
