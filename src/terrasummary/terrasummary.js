@@ -1,5 +1,7 @@
 import io from "socket.io-client";
 import * as React from "react";
+import DataTable from 'react-data-table-component';
+import {Seq} from "immutable";
 
 const { Map, fromJS } = require('immutable');
 
@@ -10,11 +12,6 @@ class PlayerSummary extends React.Component {
     }
 
     render() {
-
-        console.log(this.props.playerData.toJS())
-        console.log(this.props.playerData instanceof Map)
-        console.log(this.props.playerData.get("FinalScore"))
-        console.log(this.props.playerData.get("CardsPlayed"))
 
         const cardsPlayed = this.props.playerData.get("CardsPlayed").reverse().map((value, key) => {
             return <div key={key}>{value}</div>
@@ -32,6 +29,8 @@ class PlayerSummary extends React.Component {
         } else {
             cardsInHand = <h3>{this.props.playerData.get("CardsInHand").size}</h3>
         }
+
+
 
         return (
             <div style={{"width": "400px", "float": "left"}}>
@@ -88,14 +87,78 @@ class TerraSummary extends React.Component {
     }
 
     render() {
-        const playerSummaries = this.state.playerStates.entrySeq().map(([key, value])=> {
-            return <PlayerSummary key={key} playerData={value} />
+        // const playerSummaries = this.state.playerStates.entrySeq().map(([key, value])=> {
+        //     return <PlayerSummary key={key} playerData={value} />
+        // })
+
+        const scores = this.state.playerStates.entrySeq().map(([key, value])=> {
+            let s = value.get("Score")
+
+            s = s.set("Color", value.get("Color"))
+
+            s = s.set("MileStones", value
+                .getIn(["Score", "MilestoneScore"])
+                .filter(value => {
+                    return value.get("Score") > 0
+                })
+                .map(value => value.get("Name") + " (" + value.get("Score") + ")")
+                .join(", "))
+
+            s = s.set("Awards", value
+                .getIn(["Score", "AwardScore"])
+                .filter(value => {
+                    return value.get("Score") > 0
+                })
+                .map(value => value.get("Name") + " (" + value.get("Score") + ")")
+                .join(", "))
+
+            return s
         })
+
+        console.log(scores.toJS())
+
+        const columns = [
+            {
+                name: "Color",
+                selector: "Color"
+            },
+            {
+                name: "FinalScore",
+                selector: "FinalScore"
+            },
+            {
+                name: "TR",
+                selector: "TerraFormingRating"
+            },
+            {
+                name: "CityScore",
+                selector: "CityScore"
+            },
+            {
+                name: "GreeneryScore",
+                selector: "GreeneryScore"
+            },
+            {
+                name: "VictoryPoints",
+                selector: "VictoryPoints"
+            },
+            {
+                name: "MileStones",
+                selector: "MileStones"
+            },
+            {
+                name: "Awards",
+                selector: "Awards"
+            }
+        ]
 
         return(
             <div>
-                {playerSummaries}
+                <div>
+                    <DataTable title="Scoreboard" columns={columns} data={scores.toJS()} dense={true} />
+                </div>
             </div>
+
         )
     }
 }
