@@ -136,9 +136,9 @@ export const mockData = {
       "IsLocalPlayer":false,
       "Color":"Grey",
       "Score":{
-         "FinalScore":43,
+         "FinalScore":99,
          "TerraFormingRating":26,
-         "VictoryPoints":1,
+         "VictoryPoints":57,
          "GreeneryScore":10,
          "CityScore":0,
          "MilestoneScore":[

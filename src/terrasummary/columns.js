@@ -22,35 +22,35 @@ export const getColumns = (awards, compact) => {
                 {
                     when: row => row.Color === 'Purple',
                     style: {
-                        backgroundColor: 'rgb(146, 112, 166)',
+                        background: 'linear-gradient(rgb(146, 112, 166), rgb(188, 153, 238))',
                         fontWeight: 600
                     }
                 },
                 {
                     when: row => row.Color === 'Green',
                     style: {
-                        backgroundColor: 'rgb(76, 164, 70)',
+                        background: 'linear-gradient(rgb(76, 164, 70), rgb(153, 208, 142))',
                         fontWeight: 600
                     }
                 },
                 {
                     when: row => row.Color === 'Yellow',
                     style: {
-                        backgroundColor: 'rgb(254, 197, 0)',
+                        background: 'linear-gradient(rgb(254, 197, 0), rgb(176, 164, 118))',
                         fontWeight: 600
                     }
                 },
                 {
                     when: row => row.Color === 'Red',
                     style: {
-                        backgroundColor: 'rgb(253, 27, 75)',
+                        background: 'linear-gradient(rgb(253, 27, 75), rgb(247, 151, 151))',
                         fontWeight: 600
                     }
                 },
                 {
                     when: row => row.Color === 'Blue',
                     style: {
-                        backgroundColor: 'rgb(43, 157, 254)',
+                        background: 'linear-gradient(rgb(43, 157, 254), rgb(115, 147, 242))',
                         fontWeight: 600
                     }
                 },
@@ -59,8 +59,10 @@ export const getColumns = (awards, compact) => {
         {
             name: "Sum",
             selector: "FinalScore",
-            width: SMALL_COL_WIDTH,
-            style: COL_STYLE
+            // convert px to int, add a buffer, then back to px string
+            width: `${parseInt(SMALL_COL_WIDTH.split("px")[0], 10) + 10}px`,
+            style: COL_STYLE,
+            sortable: true,
         },
         {
             name: "Cty",

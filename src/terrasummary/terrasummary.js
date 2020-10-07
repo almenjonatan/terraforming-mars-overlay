@@ -70,7 +70,7 @@ class TerraSummary extends React.Component {
         playerStates: props.data === undefined ? Map() : fromJS(props.data),
         countAwards: true,
         compact: true,
-        streamerMode: false,
+        streamerMode: true,
       };
 
       this.handleCountAwards = this.handleCountAwards.bind(this);
@@ -103,16 +103,16 @@ class TerraSummary extends React.Component {
     }
 
     render() {
-        let columns = getColumns(!this.state.countAwards, this.state.compact)
-        let scores = createScoreData(this.state.playerStates, !this.state.countAwards)
+        const columns = getColumns(!this.state.countAwards, this.state.compact);
+        const scores = createScoreData(this.state.playerStates, !this.state.countAwards);
         const theme = this.state.streamerMode ? 'default' : 'dark';
 
         return(
           <DataTable
             columns={columns}
             data={scores.toJS()}
-            dense={true}
             theme={theme}
+            dense
             noHeader
             subHeader
             subHeaderComponent={
