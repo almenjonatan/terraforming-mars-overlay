@@ -255,6 +255,15 @@ const { Map, fromJS } = require('immutable');
 //    }
 // };
 
+const customStyles = {
+  headCells: {
+    style: {
+      paddingLeft: '5px',
+      paddingRight: '5px',
+    }
+  }
+}
+
 class PlayerSummary extends React.Component {
 
     render() {
@@ -305,6 +314,7 @@ class TerraSummary extends React.Component {
       super(props);
       this.state = {
         playerStates: props.data === undefined ? Map() : fromJS(props.data),
+        // playerStates: fromJS(mockData),
         countAwards: true,
         compact: true,
       };
@@ -381,22 +391,28 @@ class TerraSummary extends React.Component {
 
         console.log(scores.toJS())
 
+        const SMALL_WIDTH = "45px";
+
         let columns = [
             {
                 name: "Player",
                 selector: "Color",
-                width: "80px",
+                width: "55px",
+                style: {
+                  paddingLeft: 5,
+                  paddingRight: 5
+                },
                 conditionalCellStyles: [
                   {
                     when: row => row.Color === 'Purple',
                     style: {
-                      backgroundColor: '#ad4fe8'
+                      backgroundColor: '#ad4fe8',
                     }
                   },
                   {
                     when: row => row.Color === 'Green',
                     style: {
-                      backgroundColor: '#48cf4b'
+                      backgroundColor: '#48cf4b',
                     }
                   },
                   {
@@ -422,34 +438,63 @@ class TerraSummary extends React.Component {
             {
                 name: "Sum",
                 selector: "FinalScore",
-                width: "50px"
+                width: SMALL_WIDTH,
+                style: {
+                  fontSize: 20,
+                  paddingLeft: 5,
+                  paddingRight: 5
+                }
             },
             {
                 name: "Cty",
                 selector: "CityScore",
-                width: "50px"
+                width: SMALL_WIDTH,
+                style: {
+                  fontSize: 20,
+                  paddingLeft: 5,
+                  paddingRight: 5
+                }
             },
             {
                 name: "Grn",
                 selector: "GreeneryScore",
-                width: "50px"
+                width: SMALL_WIDTH,
+                style: {
+                  fontSize: 20,
+                  paddingLeft: 5,
+                  paddingRight: 5
+                }
             },
             {
                 name: "VP",
                 selector: "VictoryPoints",
-                width: "50px"
+                width: SMALL_WIDTH,
+                style: {
+                  fontSize: 20,
+                  paddingLeft: 5,
+                  paddingRight: 5
+                }
             },
             {
                 name: "MS",
                 selector: "MileStones",
                 width: "120px",
-                wrap: true
+                wrap: true,
+                style: {
+                  paddingLeft: 5,
+                  paddingRight: 5
+                }
             },
             {
               name: "Awards",
               selector: "Awards",
               width: "120px",
-              wrap: true
+              compact: true,
+              wrap: true,
+              style: {
+                paddingLeft: 5,
+                paddingRight: 5
+              }
             }
         ];
 
@@ -466,15 +511,17 @@ class TerraSummary extends React.Component {
             columns={columns}
             data={scores.toJS()}
             dense={true}
+            noHeader
             subHeader
             subHeaderComponent={
-              <div style={{ position: 'absolute', left: 17}}>
+              <div style={{ position: 'absolute', left: 0}}>
                 Count Awards?
                 <input style={{ marginRight: 10 }} type="checkbox" checked={Boolean(this.state.countAwards)} onChange={this.handleCountAwards}/>
                 Compact?
                 <input type="checkbox" checked={Boolean(this.state.compact)} onChange={this.handleCompact}/>
               </div>
-            }/>
+            }
+            customStyles={customStyles}/>
         )
     }
 }
