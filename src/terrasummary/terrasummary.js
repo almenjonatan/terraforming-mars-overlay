@@ -5,18 +5,263 @@ import {Seq} from "immutable";
 
 const { Map, fromJS } = require('immutable');
 
-class PlayerSummary extends React.Component {
+//   const mockData = {
+//    "1":{
+//       "FinalScore":0,
+//       "TerraformingRating":21,
+//       "ResourceData":{
+//          "MegaCredit":{
+//             "Quantity":39,
+//             "Production":0
+//          },
+//          "Steel":{
+//             "Quantity":0,
+//             "Production":0
+//          },
+//          "Titanium":{
+//             "Quantity":0,
+//             "Production":0
+//          },
+//          "Plant":{
+//             "Quantity":0,
+//             "Production":0
+//          },
+//          "Energy":{
+//             "Quantity":0,
+//             "Production":0
+//          },
+//          "Heat":{
+//             "Quantity":0,
+//             "Production":3
+//          }
+//       },
+//       "CardsInHand":[
+//          "Colonizer Training Camp",
+//          "Zeppelins",
+//          "Ants",
+//          "Martian Rails",
+//          "Asteroid Mining Consortium",
+//          "Shuttles",
+//          "Imported Nitrogen",
+//          "Trans-Neptune Probe",
+//          "Nitrite Reducing Bacteria",
+//          "Energy Tapping",
+//          "Capital",
+//          "Mangrove",
+//          "Urbanized Area",
+//          "Ice cap Melting",
+//          "Industrial Microbes",
+//          "Building Industries"
+//       ],
+//       "CardsPlayed":[
+//          "Subterranean Reservoir"
+//       ],
+//       "PlayerId":1,
+//       "IsLocalPlayer":true,
+//       "Color":"Green",
+//       "Score":{
+//          "FinalScore":28,
+//          "TerraFormingRating":21,
+//          "VictoryPoints":0,
+//          "GreeneryScore":0,
+//          "CityScore":0,
+//          "MilestoneScore":[
+//             {
+//                "Name":"Planner",
+//                "Score":5
+//             }
+//          ],
+//          "AwardScore":[
+//             {
+//                "Name":"Landlord",
+//                "Score":2
+//             },
+//             {
+//                "Name":"Banker",
+//                "Score":0
+//             },
+//             {
+//                "Name":"Scientist",
+//                "Score":0
+//             },
+//             {
+//                "Name":"Thermalist",
+//                "Score":0
+//             },
+//             {
+//                "Name":"Miner",
+//                "Score":0
+//             }
+//          ]
+//       }
+//    },
+//    "2":{
+//       "FinalScore":0,
+//       "TerraformingRating":26,
+//       "ResourceData":{
+//          "MegaCredit":{
+//             "Quantity":9,
+//             "Production":0
+//          },
+//          "Steel":{
+//             "Quantity":0,
+//             "Production":0
+//          },
+//          "Titanium":{
+//             "Quantity":2,
+//             "Production":0
+//          },
+//          "Plant":{
+//             "Quantity":1,
+//             "Production":1
+//          },
+//          "Energy":{
+//             "Quantity":0,
+//             "Production":1
+//          },
+//          "Heat":{
+//             "Quantity":4,
+//             "Production":2
+//          }
+//       },
+//       "CardsInHand":[
+//          "Nitrophilic Moss",
+//          "Fish",
+//          "Physics Complex"
+//       ],
+//       "CardsPlayed":[
+//          "Technology Demonstration",
+//          "Dust Seals",
+//          "Geothermal Power",
+//          "Development Center",
+//          "Deimos Down",
+//          "Tardigrades",
+//          "Magnetic Field Dome",
+//          "Power Plant"
+//       ],
+//       "PlayerId":2,
+//       "IsLocalPlayer":false,
+//       "Color":"Grey",
+//       "Score":{
+//          "FinalScore":33,
+//          "TerraFormingRating":26,
+//          "VictoryPoints":1,
+//          "GreeneryScore":0,
+//          "CityScore":0,
+//          "MilestoneScore":[
+//
+//          ],
+//          "AwardScore":[
+//             {
+//                "Name":"Landlord",
+//                "Score":2
+//             },
+//             {
+//                "Name":"Banker",
+//                "Score":0
+//             },
+//             {
+//                "Name":"Scientist",
+//                "Score":2
+//             },
+//             {
+//                "Name":"Thermalist",
+//                "Score":2
+//             },
+//             {
+//                "Name":"Miner",
+//                "Score":0
+//             }
+//          ]
+//       }
+//    },
+//    "3":{
+//       "FinalScore":0,
+//       "TerraformingRating":21,
+//       "ResourceData":{
+//          "MegaCredit":{
+//             "Quantity":10,
+//             "Production":1
+//          },
+//          "Steel":{
+//             "Quantity":0,
+//             "Production":0
+//          },
+//          "Titanium":{
+//             "Quantity":0,
+//             "Production":0
+//          },
+//          "Plant":{
+//             "Quantity":2,
+//             "Production":1
+//          },
+//          "Energy":{
+//             "Quantity":0,
+//             "Production":3
+//          },
+//          "Heat":{
+//             "Quantity":0,
+//             "Production":0
+//          }
+//       },
+//       "CardsInHand":[
+//          "Commercial District",
+//          "Aerobraked Ammonia Asteroid"
+//       ],
+//       "CardsPlayed":[
+//          "Invention Contest",
+//          "Lagrange Observatory",
+//          "Search For Life",
+//          "Archaebacteria",
+//          "Earth Office",
+//          "Regolith Eaters",
+//          "Tectonic Stress Power"
+//       ],
+//       "PlayerId":3,
+//       "IsLocalPlayer":false,
+//       "Color":"Yellow",
+//       "Score":{
+//          "FinalScore":40,
+//          "TerraFormingRating":21,
+//          "VictoryPoints":2,
+//          "GreeneryScore":1,
+//          "CityScore":1,
+//          "MilestoneScore":[
+//
+//          ],
+//          "AwardScore":[
+//             {
+//                "Name":"Landlord",
+//                "Score":5
+//             },
+//             {
+//                "Name":"Banker",
+//                "Score":0
+//             },
+//             {
+//                "Name":"Scientist",
+//                "Score":5
+//             },
+//             {
+//                "Name":"Thermalist",
+//                "Score":5
+//             },
+//             {
+//                "Name":"Miner",
+//                "Score":0
+//             }
+//          ]
+//       }
+//    }
+// };
 
-    constructor(props) {
-        super(props);
-    }
+class PlayerSummary extends React.Component {
 
     render() {
 
         const cardsPlayed = this.props.playerData.get("CardsPlayed").reverse().map((value, key) => {
             return <div key={key}>{value}</div>
-        })
-
+        });
 
         const localPlayerId = this.props.playerData.get("LocalPlayerId")
 
@@ -29,8 +274,6 @@ class PlayerSummary extends React.Component {
         } else {
             cardsInHand = <h3>{this.props.playerData.get("CardsInHand").size}</h3>
         }
-
-
 
         return (
             <div style={{"width": "400px", "float": "left"}}>
@@ -51,8 +294,6 @@ class PlayerSummary extends React.Component {
                     <h3>Cards Played</h3>
                     {cardsPlayed}
                 </div>
-
-
             </div>
         )
     }
@@ -61,21 +302,19 @@ class PlayerSummary extends React.Component {
 class TerraSummary extends React.Component {
 
     constructor(props) {
-        super(props)
+      super(props);
+      this.state = {
+        playerStates: props.data ? Map() : fromJS(props.data),
+        countAwards: true,
+        compact: true,
+      };
 
-        if(props.data === undefined){
-            this.state = {
-                playerStates: Map()
-            }
-        } else {
-            this.state = {
-                playerStates: fromJS(props.data)
-            }
-        }
+      this.handleCountAwards = this.handleCountAwards.bind(this);
+      this.handleCompact = this.handleCompact.bind(this);
     }
 
     componentDidMount() {
-        const socket = io("localhost:5000")
+        const socket = io("localhost:5000");
 
         socket.on("connect", () => {
             console.log("connected!")
@@ -86,6 +325,14 @@ class TerraSummary extends React.Component {
         })
     }
 
+    handleCountAwards(event) {
+      this.setState({ countAwards: Boolean(event.target.checked) });
+    }
+
+    handleCompact(event) {
+      this.setState({ compact: Boolean(event.target.checked )});
+    }
+
     render() {
         // const playerSummaries = this.state.playerStates.entrySeq().map(([key, value])=> {
         //     return <PlayerSummary key={key} playerData={value} />
@@ -94,7 +341,13 @@ class TerraSummary extends React.Component {
         const scores = this.state.playerStates.entrySeq().map(([key, value])=> {
             let s = value.get("Score")
 
-            s = s.set("Color", value.get("Color"))
+            // just asmodee things
+            let color = value.get("Color");
+            if (color === 'Grey') {
+              color = 'Purple';
+            }
+
+            s = s.set("Color", color);
 
             s = s.set("MileStones", value
                 .getIn(["Score", "MilestoneScore"])
@@ -112,53 +365,116 @@ class TerraSummary extends React.Component {
                 .map(value => value.get("Name") + " (" + value.get("Score") + ")")
                 .join(", "))
 
-            return s
-        })
+
+            // subtract awards score from total if checked
+            if (!this.state.countAwards) {
+              const finalScore = s.get("FinalScore");
+              const awardScore = value.getIn(['Score', 'AwardScore']).map(value => {
+                return value.get("Score")
+              }).reduce((acc, val) => acc + val);
+              const totalWithoutAwards = finalScore - awardScore;
+              s = s.set("FinalScore", totalWithoutAwards);
+            }
+
+            return s;
+        });
 
         console.log(scores.toJS())
 
-        const columns = [
+        let columns = [
             {
-                name: "Color",
-                selector: "Color"
+                name: "Player",
+                selector: "Color",
+                width: "80px",
+                conditionalCellStyles: [
+                  {
+                    when: row => row.Color === 'Purple',
+                    style: {
+                      backgroundColor: '#ad4fe8'
+                    }
+                  },
+                  {
+                    when: row => row.Color === 'Green',
+                    style: {
+                      backgroundColor: '#48cf4b'
+                    }
+                  },
+                  {
+                    when: row => row.Color === 'Yellow',
+                    style: {
+                      backgroundColor: '#e0da2b'
+                    }
+                  },
+                  {
+                    when: row => row.Color === 'Red',
+                    style: {
+                      backgroundColor: '#e32441'
+                    }
+                  },
+                  {
+                    when: row => row.Color === 'Blue',
+                    style: {
+                      backgroundColor: '#2470e3'
+                    }
+                  },
+                ]
             },
             {
-                name: "FinalScore",
-                selector: "FinalScore"
+                name: "Sum",
+                selector: "FinalScore",
+                width: "50px"
             },
             {
-                name: "TR",
-                selector: "TerraFormingRating"
+                name: "Cty",
+                selector: "CityScore",
+                width: "50px"
             },
             {
-                name: "CityScore",
-                selector: "CityScore"
+                name: "Grn",
+                selector: "GreeneryScore",
+                width: "50px"
             },
             {
-                name: "GreeneryScore",
-                selector: "GreeneryScore"
+                name: "VP",
+                selector: "VictoryPoints",
+                width: "50px"
             },
             {
-                name: "VictoryPoints",
-                selector: "VictoryPoints"
+                name: "MS",
+                selector: "MileStones",
+                width: "120px",
+                wrap: true
             },
             {
-                name: "MileStones",
-                selector: "MileStones"
-            },
-            {
-                name: "Awards",
-                selector: "Awards"
+              name: "Awards",
+              selector: "Awards",
+              width: "120px",
+              wrap: true
             }
-        ]
+        ];
+
+        if (!this.state.countAwards) {
+          columns = columns.filter((column) => column.name !== 'Awards');
+        }
+
+        if (this.state.compact) {
+          columns = columns.filter((column) => ["Player", "Sum"].includes(column.name));
+        }
 
         return(
-            <div>
-                <div>
-                    <DataTable title="Scoreboard" columns={columns} data={scores.toJS()} dense={true} />
-                </div>
-            </div>
-
+          <DataTable
+            columns={columns}
+            data={scores.toJS()}
+            dense={true}
+            subHeader
+            subHeaderComponent={
+              <div style={{ position: 'absolute', left: 17}}>
+                Count Awards?
+                <input style={{ marginRight: 10 }} type="checkbox" checked={Boolean(this.state.countAwards)} onChange={this.handleCountAwards}/>
+                Compact?
+                <input type="checkbox" checked={Boolean(this.state.compact)} onChange={this.handleCompact}/>
+              </div>
+            }/>
         )
     }
 }
