@@ -1,3 +1,7 @@
 header {
   min-height: 40px !important;
 }
+
+body {
+    background-color: transparent;
+}

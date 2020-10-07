@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 import * as React from "react";
-import DataTable from 'react-data-table-component';
+import DataTable, {createTheme} from 'react-data-table-component';
 import {getColumns} from "./columns";
 
 const { Map, fromJS } = require('immutable');
@@ -15,6 +15,15 @@ const customStyles = {
     }
   }
 }
+
+createTheme('default', {
+    background: "rgba(255, 255, 255, 0)",
+    text: {
+      primary: '#FFFFFF',
+      secondary: 'rgba(255, 255, 255, 0.7)',
+      disabled: 'rgba(0,0,0,.12)',
+    },
+});
 
 const createScoreData = (playerStates, countAwards) => {
     return playerStates.entrySeq().map(([key, value])=> {
@@ -98,7 +107,7 @@ class TerraSummary extends React.Component {
             columns={columns}
             data={scores.toJS()}
             dense={true}
-            theme='dark'
+            theme="default"
             noHeader
             subHeader
             subHeaderComponent={

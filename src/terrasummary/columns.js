@@ -1,5 +1,6 @@
 const CELL_PADDING = 3;
 const SMALL_COL_WIDTH = "32px";
+
 const COL_STYLE = {
   fontSize: 20,
   fontWeight: 600,
@@ -21,35 +22,35 @@ export const getColumns = (awards, compact) => {
                 {
                     when: row => row.Color === 'Purple',
                     style: {
-                        backgroundColor: '#ad4fe8',
+                        backgroundColor: 'rgb(146, 112, 166)',
                         fontWeight: 600
                     }
                 },
                 {
                     when: row => row.Color === 'Green',
                     style: {
-                        backgroundColor: '#48cf4b',
+                        backgroundColor: 'rgb(76, 164, 70)',
                         fontWeight: 600
                     }
                 },
                 {
                     when: row => row.Color === 'Yellow',
                     style: {
-                        backgroundColor: '#e0da2b',
+                        backgroundColor: 'rgb(254, 197, 0)',
                         fontWeight: 600
                     }
                 },
                 {
                     when: row => row.Color === 'Red',
                     style: {
-                        backgroundColor: '#e32441',
+                        backgroundColor: 'rgb(253, 27, 75)',
                         fontWeight: 600
                     }
                 },
                 {
                     when: row => row.Color === 'Blue',
                     style: {
-                        backgroundColor: '#2470e3',
+                        backgroundColor: 'rgb(43, 157, 254)',
                         fontWeight: 600
                     }
                 },
