@@ -70,10 +70,12 @@ class TerraSummary extends React.Component {
         playerStates: props.data === undefined ? Map() : fromJS(props.data),
         countAwards: true,
         compact: true,
+        streamerMode: false,
       };
 
       this.handleCountAwards = this.handleCountAwards.bind(this);
       this.handleCompact = this.handleCompact.bind(this);
+      this.handleStreamerMode = this.handleStreamerMode.bind(this);
     }
 
     componentDidMount() {
@@ -96,18 +98,21 @@ class TerraSummary extends React.Component {
       this.setState({ compact: Boolean(event.target.checked )});
     }
 
+    handleStreamerMode(event) {
+      this.setState({ streamerMode: Boolean(event.target.checked )});
+    }
+
     render() {
-
-
         let columns = getColumns(!this.state.countAwards, this.state.compact)
         let scores = createScoreData(this.state.playerStates, !this.state.countAwards)
+        const theme = this.state.streamerMode ? 'default' : 'dark';
 
         return(
           <DataTable
             columns={columns}
             data={scores.toJS()}
             dense={true}
-            theme="default"
+            theme={theme}
             noHeader
             subHeader
             subHeaderComponent={
@@ -118,8 +123,11 @@ class TerraSummary extends React.Component {
                   color: 'white'
                 }} type="checkbox" checked={Boolean(this.state.countAwards)} onChange={this.handleCountAwards}/>
                 <br/>
-                <label style={{ color: 'white' }}>Compact?</label>
+                <label style={{ color: 'white', marginRight: 10 }}>Compact?</label>
                 <input type="checkbox" checked={Boolean(this.state.compact)} onChange={this.handleCompact}/>
+                <br/>
+                <label style={{ color: 'white', marginRight: 10 }}>Streamer Mode?</label>
+                <input type="checkbox" checked={Boolean(this.state.streamerMode)} onChange={this.handleStreamerMode}/>
               </div>
             }
             customStyles={customStyles}/>
