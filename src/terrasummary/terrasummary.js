@@ -369,9 +369,9 @@ class TerraSummary extends React.Component {
             // subtract awards score from total if checked
             if (!this.state.countAwards) {
               const finalScore = s.get("FinalScore");
-              const awardScore = value.getIn(['Score', 'AwardScore']).map(value => {
-                return value.get("Score")
-              }).reduce((acc, val) => acc + val);
+              const awardScore = value.getIn(['Score', 'AwardScore'])
+                .map(value => value.get("Score"))
+                .reduce((acc, val) => acc + val);
               const totalWithoutAwards = finalScore - awardScore;
               s = s.set("FinalScore", totalWithoutAwards);
             }
