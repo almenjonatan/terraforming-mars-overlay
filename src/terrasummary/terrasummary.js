@@ -68,9 +68,9 @@ class TerraSummary extends React.Component {
       super(props);
       this.state = {
         playerStates: props.data === undefined ? Map() : fromJS(props.data),
-        countAwards: true,
-        compact: true,
-        streamerMode: true,
+        countAwards: false,
+        compact: false,
+        streamerMode: false,
       };
 
       this.handleCountAwards = this.handleCountAwards.bind(this);
@@ -115,8 +115,9 @@ class TerraSummary extends React.Component {
             dense
             noHeader
             subHeader
+            subHeaderAlign="left"
             subHeaderComponent={
-              <div style={{ position: 'absolute', left: 0}}>
+              <div style={{ marginBottom: "30px", marginLeft: 0, float: "left"}}>
                 <label style={{ color: 'white' }}>Awards?</label>
                 <input style={{
                   marginRight: 10,
