@@ -1,81 +1,85 @@
 import io from "socket.io-client";
 import * as React from "react";
-import DataTable from 'react-data-table-component';
-import {Seq} from "immutable";
+import DataTable, {createTheme} from 'react-data-table-component';
+import {getColumns} from "./columns";
 
 const { Map, fromJS } = require('immutable');
 
-class PlayerSummary extends React.Component {
+const CELL_PADDING = 3;
 
-    constructor(props) {
-        super(props);
+const customStyles = {
+  headCells: {
+    style: {
+      paddingLeft: CELL_PADDING,
+      paddingRight: CELL_PADDING,
     }
+  }
+}
 
-    render() {
+createTheme('default', {
+    background: "rgba(255, 255, 255, 0)",
+    text: {
+      primary: '#FFFFFF',
+      secondary: 'rgba(255, 255, 255, 0.7)',
+      disabled: 'rgba(0,0,0,.12)',
+    },
+});
 
-        const cardsPlayed = this.props.playerData.get("CardsPlayed").reverse().map((value, key) => {
-            return <div key={key}>{value}</div>
-        })
+const createScoreData = (playerStates, countAwards) => {
+    return playerStates.entrySeq().map(([key, value])=> {
+        let s = value.get("Score")
 
-
-        const localPlayerId = this.props.playerData.get("LocalPlayerId")
-
-        let cardsInHand = undefined
-
-        if (localPlayerId === this.props.playerData.get("PlayerId")) {
-            cardsInHand = this.props.playerData.get("CardsInHand").map((value, key) => {
-                return <div key={key}>{value}</div>
-            })
-        } else {
-            cardsInHand = <h3>{this.props.playerData.get("CardsInHand").size}</h3>
+        // just asmodee things
+        let color = value.get("Color");
+        if (color === 'Grey') {
+          color = 'Purple';
         }
 
+        s = s.set("Color", color);
+
+        s = s.set("MileStones", value
+            .getIn(["Score", "MilestoneScore"])
+            .map(value => value.get("Score"))
+            .reduce((acc, val) => acc + val) || 0);
+
+        s = s.set("Awards", value
+            .getIn(["Score", "AwardScore"])
+            .map(value => value.get("Score"))
+            .reduce((acc, val) => acc + val) || 0);
 
 
-        return (
-            <div style={{"width": "400px", "float": "left"}}>
-                {<h3>{this.props.playerData.get("Color")}, Total Score: {this.props.playerData.get("FinalScore")}</h3>}
-                <div>
-                    <span>MegaCredit {this.props.playerData.getIn(["ResourceData", "MegaCredit", "Quantity"])}</span><br />
-                    <span>steel {this.props.playerData.getIn(["ResourceData", "Steel", "Quantity"])}, </span><br />
-                    <span>titanium {this.props.playerData.getIn(["ResourceData", "Titanium", "Quantity"])}, </span><br />
-                    <span>plant {this.props.playerData.getIn(["ResourceData", "Plant", "Quantity"])}, </span><br />
-                    <span>energy {this.props.playerData.getIn(["ResourceData", "Energy", "Quantity"])}, </span><br />
-                    <span>heat {this.props.playerData.getIn(["ResourceData", "Heat", "Quantity"])}</span><br /><br />
-                </div>
-                <div>
-                    <h3>Cards In hand!</h3>
-                    {cardsInHand}
-                </div>
-                <div>
-                    <h3>Cards Played</h3>
-                    {cardsPlayed}
-                </div>
+        // subtract awards score from total if checked
+        if (countAwards) {
+          const finalScore = s.get("FinalScore");
+          const awardScore = value.getIn(['Score', 'AwardScore'])
+            .map(value => value.get("Score"))
+            .reduce((acc, val) => acc + val);
+          const totalWithoutAwards = finalScore - awardScore;
+          s = s.set("FinalScore", totalWithoutAwards);
+        }
 
-
-            </div>
-        )
-    }
+        return s;
+    });
 }
 
 class TerraSummary extends React.Component {
 
     constructor(props) {
-        super(props)
+      super(props);
+      this.state = {
+        playerStates: props.data === undefined ? Map() : fromJS(props.data),
+        countAwards: false,
+        compact: false,
+        streamerMode: false,
+      };
 
-        if(props.data === undefined){
-            this.state = {
-                playerStates: Map()
-            }
-        } else {
-            this.state = {
-                playerStates: fromJS(props.data)
-            }
-        }
+      this.handleCountAwards = this.handleCountAwards.bind(this);
+      this.handleCompact = this.handleCompact.bind(this);
+      this.handleStreamerMode = this.handleStreamerMode.bind(this);
     }
 
     componentDidMount() {
-        const socket = io("localhost:5000")
+        const socket = io("localhost:5000");
 
         socket.on("connect", () => {
             console.log("connected!")
@@ -86,79 +90,48 @@ class TerraSummary extends React.Component {
         })
     }
 
+    handleCountAwards(event) {
+      this.setState({ countAwards: Boolean(event.target.checked) });
+    }
+
+    handleCompact(event) {
+      this.setState({ compact: Boolean(event.target.checked )});
+    }
+
+    handleStreamerMode(event) {
+      this.setState({ streamerMode: Boolean(event.target.checked )});
+    }
+
     render() {
-        // const playerSummaries = this.state.playerStates.entrySeq().map(([key, value])=> {
-        //     return <PlayerSummary key={key} playerData={value} />
-        // })
-
-        const scores = this.state.playerStates.entrySeq().map(([key, value])=> {
-            let s = value.get("Score")
-
-            s = s.set("Color", value.get("Color"))
-
-            s = s.set("MileStones", value
-                .getIn(["Score", "MilestoneScore"])
-                .filter(value => {
-                    return value.get("Score") > 0
-                })
-                .map(value => value.get("Name") + " (" + value.get("Score") + ")")
-                .join(", "))
-
-            s = s.set("Awards", value
-                .getIn(["Score", "AwardScore"])
-                .filter(value => {
-                    return value.get("Score") > 0
-                })
-                .map(value => value.get("Name") + " (" + value.get("Score") + ")")
-                .join(", "))
-
-            return s
-        })
-
-        console.log(scores.toJS())
-
-        const columns = [
-            {
-                name: "Color",
-                selector: "Color"
-            },
-            {
-                name: "FinalScore",
-                selector: "FinalScore"
-            },
-            {
-                name: "TR",
-                selector: "TerraFormingRating"
-            },
-            {
-                name: "CityScore",
-                selector: "CityScore"
-            },
-            {
-                name: "GreeneryScore",
-                selector: "GreeneryScore"
-            },
-            {
-                name: "VictoryPoints",
-                selector: "VictoryPoints"
-            },
-            {
-                name: "MileStones",
-                selector: "MileStones"
-            },
-            {
-                name: "Awards",
-                selector: "Awards"
-            }
-        ]
+        const columns = getColumns(!this.state.countAwards, this.state.compact);
+        const scores = createScoreData(this.state.playerStates, !this.state.countAwards);
+        const theme = this.state.streamerMode ? 'default' : 'dark';
 
         return(
-            <div>
-                <div>
-                    <DataTable title="Scoreboard" columns={columns} data={scores.toJS()} dense={true} />
-                </div>
-            </div>
-
+          <DataTable
+            columns={columns}
+            data={scores.toJS()}
+            theme={theme}
+            dense
+            noHeader
+            subHeader
+            subHeaderAlign="left"
+            subHeaderComponent={
+              <div style={{ marginBottom: "30px", marginLeft: 0, float: "left"}}>
+                <label style={{ color: 'white' }}>Awards?</label>
+                <input style={{
+                  marginRight: 10,
+                  color: 'white'
+                }} type="checkbox" checked={Boolean(this.state.countAwards)} onChange={this.handleCountAwards}/>
+                <br/>
+                <label style={{ color: 'white', marginRight: 10 }}>Compact?</label>
+                <input type="checkbox" checked={Boolean(this.state.compact)} onChange={this.handleCompact}/>
+                <br/>
+                <label style={{ color: 'white', marginRight: 10 }}>Streamer Mode?</label>
+                <input type="checkbox" checked={Boolean(this.state.streamerMode)} onChange={this.handleStreamerMode}/>
+              </div>
+            }
+            customStyles={customStyles}/>
         )
     }
 }
