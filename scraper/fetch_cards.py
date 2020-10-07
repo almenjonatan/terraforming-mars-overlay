@@ -17,7 +17,7 @@ def main():
         time.sleep(2)
         cards.append(parse_card(driver))
 
-    with open("../data/cards.json", "w") as f:
+    with open("data/cards.json", "w") as f:
         f.write(json.dumps({"cards": cards}))
 
 
