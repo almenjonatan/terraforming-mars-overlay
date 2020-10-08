@@ -734,19 +734,14 @@ game_data = {"cards": [
                  "ae": ""}]}
 cards = {v["number"]: v["name"] for v in game_data["cards"]}
 
-current_state = None
-
-
 @app.route('/update', methods=["POST"])
 def get_state():
-    global current_state
     content = request.json
 
     for k, v in content.items():
         content[k]["CardsPlayed"] = [cards[str(card_number)] for card_number in content[k]["CardsPlayed"]]
         content[k]["CardsInHand"] = [cards[str(card_number)] for card_number in content[k]["CardsInHand"]]
 
-    current_state = content
     socketio.emit("update", content)
 
     return jsonify(success=True)
@@ -759,8 +754,7 @@ def home():
 
 @socketio.on('connect')
 def connect():
-    if current_state:
-        socketio.emit("update", current_state)
+    print("Client connected")
 
 
 @socketio.on('disconnect')
