@@ -71,8 +71,10 @@ class TerraSummary extends React.Component {
         countAwards: false,
         compact: false,
         streamerMode: false,
+        showCheckboxes: true,
       };
 
+      this.handleKeyDown = this.handleKeyDown.bind(this);
       this.handleCountAwards = this.handleCountAwards.bind(this);
       this.handleCompact = this.handleCompact.bind(this);
       this.handleStreamerMode = this.handleStreamerMode.bind(this);
@@ -88,7 +90,15 @@ class TerraSummary extends React.Component {
         socket.on("update", (data) => {
             this.setState({ playerStates: this.state.playerStates.merge(fromJS(data))})
         })
+
+        document.addEventListener("keydown", this.handleKeyDown);
     }
+
+    handleKeyDown(event) {
+      if (event.keyCode === 72) { // 72 === h key, https://keycode.info/
+        this.setState((prevState) => ({ showCheckboxes: !prevState.showCheckboxes }));
+      }
+    };
 
     handleCountAwards(event) {
       this.setState({ countAwards: Boolean(event.target.checked) });
@@ -114,15 +124,15 @@ class TerraSummary extends React.Component {
             theme={theme}
             dense
             noHeader
-            subHeader
+            subHeader={this.state.showCheckboxes}
             subHeaderAlign="left"
             subHeaderComponent={
-              <div style={{ marginBottom: "30px", marginLeft: 0, float: "left"}}>
+              <div>
+                <label style={{ color: 'white'}}>Press 'h' to hide checkboxes</label>
+                <br/>
                 <label style={{ color: 'white' }}>Awards?</label>
-                <input style={{
-                  marginRight: 10,
-                  color: 'white'
-                }} type="checkbox" checked={Boolean(this.state.countAwards)} onChange={this.handleCountAwards}/>
+                <input style={{ marginRight: 10, color: 'white'}}
+                  type="checkbox" checked={Boolean(this.state.countAwards)} onChange={this.handleCountAwards}/>
                 <br/>
                 <label style={{ color: 'white', marginRight: 10 }}>Compact?</label>
                 <input type="checkbox" checked={Boolean(this.state.compact)} onChange={this.handleCompact}/>
