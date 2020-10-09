@@ -1,5 +1,6 @@
 header {
   min-height: 60px !important;
+  padding: 0 !important;
 }
 
 body {
