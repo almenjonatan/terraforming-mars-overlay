@@ -734,13 +734,14 @@ game_data = {"cards": [
                  "ae": ""}]}
 cards = {v["number"]: v["name"] for v in game_data["cards"]}
 
+
 @app.route('/update', methods=["POST"])
 def get_state():
     content = request.json
 
-    for k, v in content.items():
-        content[k]["CardsPlayed"] = [cards[str(card_number)] for card_number in content[k]["CardsPlayed"]]
-        content[k]["CardsInHand"] = [cards[str(card_number)] for card_number in content[k]["CardsInHand"]]
+    # for k, v in content.items():
+    #     content[k]["CardsPlayed"] = [cards[str(card_number)] for card_number in content[k]["CardsPlayed"]]
+    #     content[k]["CardsInHand"] = [cards[str(card_number)] for card_number in content[k]["CardsInHand"]]
 
     socketio.emit("update", content)
 
