@@ -1,0 +1,601 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "frontend",
+    "version": "1.0"
+  },
+  "paths": {
+    "/GameState/turn/{playerId}": {
+      "post": {
+        "tags": [
+          "GameState"
+        ],
+        "operationId": "UpdateTurn",
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TurnLog"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TurnLog"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TurnLog"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/GameState/metadata/{playerId}": {
+      "post": {
+        "tags": [
+          "GameState"
+        ],
+        "operationId": "UpdatePlayerMetadata",
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PlayerMetaData"
+                },
+                "nullable": true
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PlayerMetaData"
+                },
+                "nullable": true
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PlayerMetaData"
+                },
+                "nullable": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OccupiedTile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "owner": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ownerColor": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerAction": {
+        "type": "object",
+        "properties": {
+          "actionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "actionType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "addResToCard": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "cards": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "achievementType": {
+            "type": "string",
+            "nullable": true
+          },
+          "achievementCategory": {
+            "type": "string",
+            "nullable": true
+          },
+          "convertedResource": {
+            "type": "string",
+            "nullable": true
+          },
+          "standardProjectType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "standardProjectName": {
+            "type": "string",
+            "nullable": true
+          },
+          "subActionEvents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "blueCardAction": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "cardsPlayed": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "cardsSelectedAndPlayed": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "cardsSelected": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "cardsDiscarded": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "victimPlayerIDs": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "placedTiles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OccupiedTile"
+            },
+            "nullable": true
+          },
+          "gainedActions": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "gainedEffects": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Score": {
+        "type": "object",
+        "properties": {
+          "awardScore": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "awardScoreSum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cityScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "finalScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "finalScoreMinusAwards": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "greeneryScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "milestoneScore": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "milestoneScoreSum": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "terraFormingRating": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "victoryPoints": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResourceOnCard": {
+        "type": "object",
+        "properties": {
+          "card": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cardName": {
+            "type": "string",
+            "nullable": true
+          },
+          "resType": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResourceItem": {
+        "type": "object",
+        "properties": {
+          "production": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAmountSpent": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAmountDestroyedByOpp": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerLog": {
+        "type": "object",
+        "properties": {
+          "clockTimeRemaining": {
+            "type": "string",
+            "nullable": true
+          },
+          "clockTimeUsed": {
+            "type": "string",
+            "nullable": true
+          },
+          "score": {
+            "$ref": "#/components/schemas/Score"
+          },
+          "cardsInHand": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "cardsPlayed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "discardedCards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "drawnCards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "discardedPreludeCards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "selectedPreludeCards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "draftPhase": {
+            "type": "string",
+            "nullable": true
+          },
+          "availableCards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "draftCards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "resourceDataOnCards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceOnCard"
+            },
+            "nullable": true
+          },
+          "resourceData": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ResourceItem"
+            },
+            "nullable": true
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "cardActions": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "cardEffects": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TurnLog": {
+        "type": "object",
+        "properties": {
+          "actionLog": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlayerAction"
+            },
+            "nullable": true
+          },
+          "activePlayer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "discardPile": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "generation": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numCardsLeftInDeck": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "oceanTileCounter": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "occupiedTiles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OccupiedTile"
+            },
+            "nullable": true
+          },
+          "oxygenLevel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "phaseType": {
+            "type": "string",
+            "nullable": true
+          },
+          "playerInfo": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PlayerLog"
+            },
+            "nullable": true
+          },
+          "playerOrder": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "temperatureLevel": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerMetaData": {
+        "type": "object",
+        "properties": {
+          "availableCorps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "color": {
+            "type": "string",
+            "nullable": true
+          },
+          "corporation": {
+            "type": "string",
+            "nullable": true
+          },
+          "isLocalPlayer": {
+            "type": "boolean"
+          },
+          "localPlayerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "elo": {
+            "type": "number",
+            "format": "double"
+          },
+          "karma": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "webId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "avatarId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "avatarImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "avatarLocation": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

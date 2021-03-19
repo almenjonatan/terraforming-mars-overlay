@@ -1,0 +1,67 @@
+.main-grid-container {
+    display: grid;
+    margin: auto;
+    grid-template-columns: 480px;
+    max-width: 500px;
+    margin: auto;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(14, 0.9em 0.9em);
+    grid-template-rows: repeat(15, 0.48em 0.9em) 0.48em;
+    gap: 0.2em 0.125em;
+    background-image: url("../../assets/mars.png");
+    background-position: center;
+    background-position: 40% 50%;
+    background-size: 325px 325px;
+    background-repeat: no-repeat;
+}
+
+@media screen and (min-width : 800px) {
+
+    .main-grid-container {
+        display: grid;
+        margin: auto;
+        grid-template-columns: 800px;
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(14, 1.5em 1.5em);
+        grid-template-rows: repeat(15, 0.75em 1.5em) 0.75em;
+        gap: 0.2em 0.125em;
+        background-image: url("../../assets/mars.png");
+        background-position: center;
+        background-position: 35% 50%;
+        background-size: 525px 525px;
+        background-repeat: no-repeat;
+    }
+}
+
+
+
+@media screen and (min-width : 1280px) {
+
+    .main-grid-container {
+        display: grid;
+        grid-template-columns: 480px 800px;
+        max-width: calc(480px + 800px);
+        margin: auto;
+        margin-top: 10vh;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(14, 1.5em 1.5em);
+        grid-template-rows: repeat(15, 0.75em 1.5em) 0.75em;
+        gap: 0.2em 0.125em;
+        background-image: url("../../assets/mars.png");
+        background-position: center;
+        background-position: 35% 50%;
+        background-size: 525px 525px;
+        background-repeat: no-repeat;
+    }
+}

@@ -1,4 +1,0 @@
-Flask
-gevent-websocket
-flask-socketio
-pywin32; sys_platform == "windows"

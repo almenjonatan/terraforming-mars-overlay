@@ -1,0 +1,9 @@
+
+{
+    "region" : "eu-west-2",
+    "profile" : "default",
+    "configuration" : "Release",
+    "image-tag"     : "terraformingmars:latest",
+    "docker-build-working-dir" : "",
+    "vstoolkit-deployment-mode" : "PushOnly"
+}

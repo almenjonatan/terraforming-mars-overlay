@@ -1,0 +1,171 @@
+GameId: 2660153709840830464 
+GameSeed: 1254737922 
+IsRanked: False 
+GameStartTime: Sat, 21 Nov 2020 09:17:32 GMT 
+SelectedGameDuration: 45.00:00:00 
+
+Player 1: 
+	Color: Green 
+	Name: ThisIsBad 
+	Elo: 1714 
+	AvailableCorporations: ["UNMI","InterplanetaryCinematics"] 
+	SelectedCorporation: InterplanetaryCinematics 
+Player 2: 
+	Color: Purple 
+	Name: skyw 
+	Elo: 1647 
+	AvailableCorporations: ["MiningGuild","SaturnSystems"] 
+	SelectedCorporation: SaturnSystems 
+
+Generation 1, PlayerOrder: [1,2] 
+	Phase: PlayerSetup 
+		ActivePlayer: 1 
+			Cards drawn: ["Lava Flows","Business Network","Solar Wind Power","Windmills","Building Industries","Ore Processor"] 
+			Cards discarded: ["GHG-Producing Bacteria","Pets","Imported GHG","Aerobraked Ammonia Asteroid"] 
+			Cards in hand: ["Lava Flows","Business Network","Solar Wind Power","Windmills","Building Industries","Ore Processor"] 
+			Cards played: [] 
+			Remaining time on clock: 39.07:27:18.1120000 
+			Time spent: 5.16:32:41.8880000 
+			Resources:
+			         MC  Steel     Ti  Plant Energy   Heat
+			Prod      0      0      0      0      0      0
+			Qty      12     20      0      0      0      0
+			Tags:
+			Building      1	Space         0
+			Power         0	Science       0
+			Jovian        0	Earth         0
+			Plant         0	Microbe       0
+			Animal        0	City          0
+			Event         0	
+		ActivePlayer: 2 
+			Cards drawn: ["Industrial Center","Trees","Viral Enhancers","Investment Loan","Towing A Comet","Capital"] 
+			Cards discarded: ["Rad-Suits","Black Polar Dust","Flooding","Soletta"] 
+			Cards in hand: ["Industrial Center","Trees","Viral Enhancers","Investment Loan","Towing A Comet","Capital"] 
+			Cards played: [] 
+			Remaining time on clock: 41.16:03:32.9850000 
+			Time spent: 3.07:56:27.0150000 
+			Resources:
+			         MC  Steel     Ti  Plant Energy   Heat
+			Prod      1      0      1      0      0      0
+			Qty      24      0      0      0      0      0
+			Tags:
+			Building      0	Space         0
+			Power         0	Science       0
+			Jovian        1	Earth         0
+			Plant         0	Microbe       0
+			Animal        0	City          0
+			Event         0	
+	Phase: Action 
+		ActivePlayer: 1 
+			Cards drawn: ["Advanced Alloys"] 
+			Cards discarded: [] 
+			Cards in hand: ["Lava Flows","Solar Wind Power","Windmills","Building Industries","Ore Processor","Advanced Alloys"] 
+			Cards played: ["Business Network"] 
+			Remaining time on clock: 39.07:27:17.9680000 
+			Time spent: 5.16:32:42.0320000 
+			Resources:
+			         MC  Steel     Ti  Plant Energy   Heat
+			Prod     -1      0      0      0      0      0
+			Qty       5     20      0      0      0      0
+			Tags:
+			Building      1	Space         0
+			Power         0	Science       0
+			Jovian        0	Earth         1
+			Plant         0	Microbe       0
+			Animal        0	City          0
+			Event         0	
+		ActivePlayer: 2 
+			Cards drawn: [] 
+			Cards discarded: [] 
+			Cards in hand: ["Industrial Center","Trees","Investment Loan","Towing A Comet","Capital"] 
+			Cards played: ["Viral Enhancers"] 
+			Remaining time on clock: 41.16:03:32.8570000 
+			Time spent: 3.07:56:27.1430000 
+			Resources:
+			         MC  Steel     Ti  Plant Energy   Heat
+			Prod      1      0      1      0      0      0
+			Qty      15      0      0      1      0      0
+			Tags:
+			Building      0	Space         0
+			Power         0	Science       1
+			Jovian        1	Earth         0
+			Plant         0	Microbe       1
+			Animal        0	City          0
+			Event         0	
+		ActivePlayer: 1 
+			Cards drawn: [] 
+			Cards discarded: [] 
+			Cards in hand: ["Lava Flows","Solar Wind Power","Windmills","Building Industries","Ore Processor","Advanced Alloys"] 
+			Cards played: [] 
+			Remaining time on clock: 39.07:27:17.8770000 
+			Time spent: 5.16:32:42.1230000 
+			Resources:
+			         MC  Steel     Ti  Plant Energy   Heat
+			Prod     -1      0      0      0      0      0
+			Qty       5     20      0      0      0      0
+			Tags:
+			Building      1	Space         0
+			Power         0	Science       0
+			Jovian        0	Earth         1
+			Plant         0	Microbe       0
+			Animal        0	City          0
+			Event         0	
+Generation 2, PlayerOrder: [2,1] 
+	Phase: PlayerOrder 
+		PlayerOrder: [2,1] 
+			Player 1: 
+				Resources:
+				         MC  Steel     Ti  Plant Energy   Heat
+				Prod     -1      0      0      0      0      0
+				Qty      24     20      0      0      0      0
+				Tags:
+				Building      1	Space         0
+				Power         0	Science       0
+				Jovian        0	Earth         1
+				Plant         0	Microbe       0
+				Animal        0	City          0
+				Event         0	
+			Player 2: 
+				Resources:
+				         MC  Steel     Ti  Plant Energy   Heat
+				Prod      1      0      1      0      0      0
+				Qty      36      0      1      1      0      0
+				Tags:
+				Building      0	Space         0
+				Power         0	Science       1
+				Jovian        1	Earth         0
+				Plant         0	Microbe       1
+				Animal        0	City          0
+				Event         0	
+	Phase: DraftResearch 
+		Round 1: 
+			Player 1: 
+				Remaining time on clock: 39.07:27:17.8600000 
+				Time spent: 5.16:32:42.1400000 
+			Available cards: ["Insulation","Deep Well Heating","Strip Mine","Asteroid Mining"] 
+			Player 2: 
+				Remaining time on clock: 41.16:03:32.5980000 
+				Time spent: 3.07:56:27.4020000 
+			Available cards: ["Toll Station","Underground Detonations","Business Contacts","Technology Demonstration"] 
+		Round 2: 
+			Player 1: 
+				Remaining time on clock: 39.07:27:17.7730000 
+				Time spent: 5.16:32:42.2270000 
+			Available cards: ["Insulation","Deep Well Heating","Asteroid Mining"] 
+			Selected cards: ["Strip Mine"] 
+			Player 2: 
+				Remaining time on clock: 41.16:03:32.5980000 
+				Time spent: 3.07:56:27.4020000 
+			Available cards: ["Toll Station","Underground Detonations","Business Contacts"] 
+			Selected cards: ["Technology Demonstration"] 
+		Round 3: 
+			Player 1: 
+				Remaining time on clock: 39.07:27:17.6920000 
+				Time spent: 5.16:32:42.3080000 
+			Available cards: ["Toll Station","Underground Detonations"] 
+			Selected cards: ["Strip Mine","Business Contacts"] 
+			Player 2: 
+				Remaining time on clock: 41.16:03:32.5160000 
+				Time spent: 3.07:56:27.4840000 
+			Available cards: ["Insulation","Deep Well Heating"] 
+			Selected cards: ["Technology Demonstration","Asteroid Mining"] 
